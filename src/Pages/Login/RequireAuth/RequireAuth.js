@@ -7,7 +7,7 @@ import auth from '../Firebase/firebase.config';
 const RequireAuth = () => {
     const [user, loading] = useAuthState(auth);
     const location= useLocation();
-    console.log(user);
+    //console.log(user);
     if(loading){
         return <CircularProgress />
     }

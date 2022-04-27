@@ -5,6 +5,7 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../../images/login.png';
 import auth from '../Firebase/firebase.config';
+import SocialLogin from '../SocialLogin/SocialLogin';
 const Login = () => {
     const [loginData, setLoginData]=useState({});
     const location = useLocation();
@@ -30,11 +31,10 @@ const Login = () => {
         const email= loginData.email;
         const password= loginData.password;
         await signInWithEmailAndPassword(email,password);
-        navigate(from, { replace: true });
     }
-    /* if(user){
-        navigate('/home')
-    } */
+    if(user){
+        navigate(from, { replace: true });
+    } 
     return (
         <Container>
             <Grid container spacing={2}>
@@ -69,6 +69,8 @@ const Login = () => {
                     {loading && <CircularProgress />}
                     {user && <Alert severity="success">Login Successfully</Alert>}
                     {error?.message && <Alert severity="error">{error.message}</Alert>}
+                    <p>----------------or----------------</p>
+                    <SocialLogin></SocialLogin>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img src={login} style={{width:'100%'}}/>

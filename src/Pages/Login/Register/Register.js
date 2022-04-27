@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import login from '../../../images/login.png';
 import auth from '../Firebase/firebase.config';
 import { Box } from '@mui/system';
+import SocialLogin from '../SocialLogin/SocialLogin';
 const Register = () => {
     const navigate = useNavigate();
     const [name, setName]= useState('');
@@ -105,14 +106,17 @@ const Register = () => {
                             onBlur={handlePassword2}
                         />
                         { passwordUnMatchedError && <Alert severity="warning" sx={{width: '68%', mx:'auto'}}>Password is not Matching</Alert>}
+                        {error && <Alert severity="error" sx={{width: '68%', mx:'auto'}}>{error.message}</Alert>}
                         <Button variant='contained' type='submit' sx={{ width:'75%', m:1}}>Register</Button>
                         <NavLink to='/login' style={{textDecoration: 'none'}}>
                             <Button varient='text'>Already have an Account? Please Login</Button>
                         </NavLink>
                     </form>
                     {loading && <CircularProgress />}
-                    {user && <Alert severity="success">User create Successfully</Alert>}
-                    {error && <Alert severity="error">{error.message}</Alert>}
+                    {user && <Alert severity="success" sx={{width: '68%', mx:'auto'}}>User create Successfully</Alert>}
+
+                    <p>----------------or----------------</p>
+                    <SocialLogin></SocialLogin>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img src={login} style={{width:'100%'}}/>
