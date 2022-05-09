@@ -38,15 +38,15 @@ const Navigation = () => {
             </Link>
             {
               user ? 
-              <>
-                <Typography>
-                  {user.displayName}
-                </Typography>
+              <Box>
+                <NavLink to='/dashboard' style={{textDecoration:"none", color: 'white'}}>
+                  <Button color="inherit">Dashboard</Button>
+                </NavLink>
                 <Button onClick={handleSignOut} color="inherit" style={{textDecoration:"none", color: 'white'}}>Logout</Button>
-              </>
+              </Box>
               
               :
-              <NavLink to='/login' style={{textDecoration:"none", color: 'white'}}>
+            <NavLink to='/login' style={{textDecoration:"none", color: 'white'}}>
               <Button color="inherit">Login</Button>
             </NavLink>
             }
