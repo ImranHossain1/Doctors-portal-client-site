@@ -15,7 +15,6 @@ const Register = () => {
     // const [loginData, setLoginData]=useState({});
     const [passwordLengthError, setPasswordLengthError] = useState(false);
     const [passwordUnMatchedError, setPasswordUnMatchedError] = useState(false);
-    let errorElement;
     const [
         createUserWithEmailAndPassword,
         user,
@@ -24,6 +23,17 @@ const Register = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
+    const saveUser = (email, displayName)=>{
+        const user = {email, displayName};
+        fetch('http://localhost:5000/users',{
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+    }
     const handleName= e=>{
         setName(e.target.value);
     }
@@ -53,6 +63,7 @@ const Register = () => {
             return;
         }
         await createUserWithEmailAndPassword(email, password);
+        saveUser(email,name);
         await updateProfile({displayName: name});    
         // alert('User Registration Successfully.');
     }

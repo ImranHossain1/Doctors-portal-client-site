@@ -9,7 +9,19 @@ const SocialLogin = () => {
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
+    const saveUser = (email, displayName)=>{
+        const userDetails = {email, displayName};
+        fetch('http://localhost:5000/users',{
+            method: 'PUT',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(userDetails)
+        })
+            .then()
+    }
     if(user){
+        saveUser(user.user.email, user.user.displayName);
         navigate(from, { replace: true });
     } 
     return (
