@@ -10,7 +10,7 @@ const AdminRoute = () => {
     React.useEffect(()=>{
       fetch(`http://localhost:5000/users/${user.email}`)
       .then(res => res.json())
-      .then(data=>setAdmin(true))
+      .then(data=>console.log(data.admin))
     },[user.email])
     console.log(admin)
     return ( user.email && admin? <Outlet/> : <Navigate to='/dashboard' state={{ from: location }} replace/>
