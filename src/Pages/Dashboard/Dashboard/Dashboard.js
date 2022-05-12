@@ -15,32 +15,27 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 
 import { Link, Route, Routes } from 'react-router-dom';
 import DashBoardHome from '../DashboardHome/DashBoardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../Login/Firebase/firebase.config';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
+import useAdmin from '../../../hooks/useAdmin';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
-  const [user, loading] = useAuthState(auth);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [admin, setAdmin] = React.useState(false);
-  React.useEffect(()=>{
-    fetch(`http://localhost:5000/users/${user.email}`)
-    .then(res => res.json())
-    .then(data=>setAdmin(data.admin))
-  },[user.email])
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  
+
+  const {admin} = useAdmin();
+  //console.log(admin)
   const drawer = (
     <div>
       <Toolbar />
@@ -138,7 +133,7 @@ function Dashboard(props) {
         <Toolbar />
          <Routes>
             <Route path={``} element={<DashBoardHome></DashBoardHome>}></Route>
-            <Route path='/*' element={<AdminRoute/>}>
+             <Route path='/*' element={<AdminRoute/>}>
               <Route path={`makeAdmin`} element={<MakeAdmin></MakeAdmin>}></Route>
               <Route path={`adddoctor`} element={<AddDoctor></AddDoctor>}></Route>
             </Route>
